@@ -1,0 +1,53 @@
+@import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+$background-background-primary: #18181B;
+$background-background-secondary: #27272A;
+$stroke-stroke-based: #27272A;
+$stroke-stroke-subdued: #27272A;
+$icon-icon-base: #fffffe;
+$text-text-subduedAlt: #71717A;
+$text-text-subdued: #a1a1aa;
+$text-text-base: #fffffe;
+
+@mixin headling-1 {
+    font-family: 'Mulish';
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 40px;
+    letter-spacing: 0;
+}
+@mixin headling-2 {
+    font-family: 'Mulish';
+    font-size: 24px;
+    font-weight: 800;
+    line-height: 32px;
+    letter-spacing: 0;
+}
+@mixin headling-3 {
+    font-family: 'Mulish';
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 28px;
+    letter-spacing: 0;
+}
+@mixin body-1 {
+    font-family: 'Mulish';
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 32px;
+    letter-spacing: 0.1px;
+}
+@mixin body-2 {
+    font-family: 'Mulish';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    letter-spacing: 0.5px;
+}
+@mixin body-3 {
+    font-family: 'Mulish';
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.5px;
+}

@@ -1,0 +1,16 @@
+@import './components/_styles.scss';
+
+body {
+  background-color: $background-background-primary;
+  margin: 0;
+}
+
+.main {
+  margin: 0 324px 0 324px;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+
+}

@@ -1,0 +1,80 @@
+@import '../styles.scss';
+
+a {
+    text-decoration: none;
+    color: inherit;
+
+    .post {
+        display: flex;
+        gap: 64px;
+
+        .info {
+            .author-info {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 12px;
+
+                img {
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                }
+
+                p {
+                    height: 20px;
+                    margin: 0;
+
+                    &.author {
+                        @include body-3;
+                        color: $text-text-base;
+                    }
+
+                    &.date {
+                        @include body-3;
+                        color: $text-text-subdued;
+                    }
+                }
+            }
+
+            .text-info {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                .title {
+                    @include headling-2;
+                    color: $text-text-base;
+                    margin: 0;
+                }
+
+                .text {
+                    margin: 0;
+                    @include body-2;
+                    color: $text-text-base;
+                }
+            }
+
+            .tags {
+                @include body-2;
+                color: $text-text-base;
+                height: 40px;
+                padding: 16px 0;
+                display: flex;
+                align-items: center;
+            }
+        }
+        .image {
+            display: flex;
+            align-items: center;
+            min-width: 260px;
+            max-width: 260px;
+            img {
+                width: 100%;
+                height: 136px;
+                object-fit: cover;
+                border-radius: 16px;
+                
+            }
+        }
+    }
+}

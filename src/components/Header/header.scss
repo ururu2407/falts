@@ -1,0 +1,73 @@
+@import '../styles.scss';
+
+header {
+    padding: 20px 324px;
+    margin: 0;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $stroke-stroke-subdued;
+
+    nav {
+        display: flex;
+        list-style: none;
+        align-items: center;
+
+        &.nav-left {
+            gap: 40px;
+
+            .logo {
+                min-width: 100px;
+                min-height: 24px;
+            }
+
+            .search {
+                max-width: 260px;
+                width: 100%;
+                padding: 9px 12px;
+                background: $background-background-secondary;
+                border: 1px solid $stroke-stroke-based;
+                border-radius: 12px;
+                display: flex;
+                gap: 12px;
+
+                svg {
+                    path {
+                        fill: $icon-icon-base;
+                    }
+                }
+
+                input {
+                    @include body-3;
+                    width: 100%;
+                    border: none;
+                    outline: none;
+                    background: none;
+                    padding: 0;
+                    color: $text-text-base;
+
+                    &::placeholder {
+                        color: $text-text-subduedAlt;
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        &.nav-right {
+            gap: 8px;
+
+            li {
+                display: flex;
+                gap: 8px;
+                padding: 0 8px;
+                justify-content: center;
+
+                p {
+                    @include body-3;
+                    color: $text-text-subdued;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
