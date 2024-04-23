@@ -7,7 +7,7 @@ export const Header = () => {
   return (
     <header>
       <nav className='nav-left'>
-        <Link to={'/'} style={{ textDecoration: 'none', height: '24px' }}>
+        <Link to={'/falts'} style={{ textDecoration: 'none', height: '24px' }}>
           <LogoIcon />
         </Link>
         <div className='search'>
@@ -15,8 +15,8 @@ export const Header = () => {
           <input type="text" placeholder='Пошук...' />
         </div>
       </nav>
-      <Link to={'/login'}>Login</Link>
-      <Link to={'/registration'}>Registration</Link>
+      <Link to={'/falts/login'}>Login</Link>
+      <Link to={'/falts/registration'}>Registration</Link>
       <nav className='nav-right'>
         <li>
           <WriteIcon />

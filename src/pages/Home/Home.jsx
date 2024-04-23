@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import { Post } from '../../components/Post/Post';
+import { Post, PopularPost } from '../../components/Post/Post';
+import { PlusIcon } from '../../icons';
 import './home.scss';
 export const Home = () => {
     const [data, setData] = useState([]);
@@ -29,34 +30,69 @@ export const Home = () => {
     }, []);
 
     return (
-        <div className='main'>
-            {/* <div>
+        <>
+            <div className='sidebar'>
+                <nav className='filter-posts'>
+                    <li className='active'>Моя Стрічка</li>
+                    <li>Слідкую</li>
+                    <li>Популярне</li>
+                    <li>Нове</li>
+                </nav>
+                <div className='divider'></div>
+                <nav className='my-tags'>
+                    <li className='addTag'><PlusIcon/></li>
+                    <li>Design</li>
+                    <li>Web Development</li>
+                    <li>Штучний інтелект</li>
+                </nav>
+            </div>
+            <div className='main'>
+                {/* <div>
                 <Link to='/write' style={{ textDecoration: "none" }}>
                     Create Post
                 </Link>
             </div> */}
-            <div style={{ width: "840px", marginTop: "48px" }}>
-                {data.map((post) => (
-                    <>
-                        <div key={post.id}>
-                            <Post
-                                user={users.find(user => user.id === post.user_id)}
-                                title={post.title}
-                                date={post.date}
-                                text={post.text}
-                                image={post.image}
-                                id={post.id} />
-                            {/* Отображаем кнопку "Изменить" только если текущий пользователь создал этот пост */}
-                            {currentUser && currentUser.id === post.user_id && (
-                                <Link to={`/write/${post.id}`} style={{ textDecoration: "none" }}>
-                                    <button>Edit</button>
-                                </Link>
-                            )}
-                        </div>
-                        <div className='divider'></div>
-                    </>
-                ))}
+                <div className='home-content'>
+                    <div className='posts'>
+                        {data.map((post, index) => (
+                            <React.Fragment key={post.id}>
+                                <div>
+                                    <Post
+                                        user={users.find(user => user.id === post.user_id)}
+                                        title={post.title}
+                                        date={post.date}
+                                        text={post.text}
+                                        image={post.image}
+                                        id={post.id} />
+                                    {/* Отображаем кнопку "Изменить" только если текущий пользователь создал этот пост */}
+                                    {currentUser && currentUser.id === post.user_id && (
+                                        <Link to={`/falts/write/${post.id}`} style={{ textDecoration: "none" }}>
+                                            <button>Edit</button>
+                                        </Link>
+                                    )}
+                                </div>
+                                {index !== data.length - 1 && <div className='divider'></div>}
+                            </React.Fragment>
+                        ))}
+                    </div>
+                    <div className='popular-posts'>
+                        <p className='title-posts'>Популярне сьогодні</p>
+                        {data.map((post, index) => (
+                            <React.Fragment key={post.id}>
+                                <div>
+                                    <PopularPost
+                                        user={users.find(user => user.id === post.user_id)}
+                                        title={post.title}
+                                        date={post.date}
+                                        id={post.id} />
+                                </div>
+                                {index !== data.length - 1 && <div className='divider'></div>}
+                            </React.Fragment>
+                        ))}
+                    </div>
+
+                </div>
             </div>
-        </div>
+        </>
     )
 }

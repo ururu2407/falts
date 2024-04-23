@@ -12,28 +12,42 @@ a {
             .author-info {
                 display: flex;
                 align-items: center;
-                gap: 8px;
+                justify-content: space-between;
                 margin-bottom: 12px;
 
-                img {
-                    width: 32px;
-                    height: 32px;
-                    border-radius: 50%;
+                .author-block {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    img {
+                        width: 32px;
+                        height: 32px;
+                        border-radius: 50%;
+                    }
+
+                    p {
+                        height: 20px;
+                        margin: 0;
+
+                        &.author {
+                            @include body-3;
+                            color: $text-text-base;
+                        }
+
+                        &.date {
+                            @include body-3;
+                            color: $text-text-subdued;
+                        }
+                    }
                 }
 
-                p {
-                    height: 20px;
-                    margin: 0;
-
-                    &.author {
-                        @include body-3;
-                        color: $text-text-base;
-                    }
-
-                    &.date {
-                        @include body-3;
-                        color: $text-text-subdued;
-                    }
+                .save-icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
                 }
             }
 
@@ -41,39 +55,142 @@ a {
                 display: flex;
                 flex-direction: column;
                 gap: 8px;
+
                 .title {
                     @include headling-2;
                     color: $text-text-base;
-                    margin: 0;
                 }
 
                 .text {
-                    margin: 0;
                     @include body-2;
                     color: $text-text-base;
                 }
             }
 
             .tags {
-                @include body-2;
+                @include body-3;
                 color: $text-text-base;
                 height: 40px;
                 padding: 16px 0;
                 display: flex;
                 align-items: center;
+                justify-content: space-between;
+                .tag {
+                    padding: 4px 12px;
+                    border-radius: 100px;
+                    border: 1px solid $stroke-stroke-based;
+                }
+                .icons {
+                    display: flex;
+                    .icon {
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        padding: 0px 8px;
+                        gap: 8px;
+                        p {
+                            @include body-3;
+                            color: $text-text-subdued;
+                        }
+                        &.other {
+                            padding: 0;
+                            width: 40px;
+                            justify-content: center;
+                        }
+                    }
+                }
             }
         }
+
         .image {
             display: flex;
             align-items: center;
             min-width: 260px;
             max-width: 260px;
+
             img {
                 width: 100%;
                 height: 136px;
                 object-fit: cover;
                 border-radius: 16px;
-                
+
+            }
+        }
+    }
+
+    .popular-post {
+        .info {
+            display: flex;
+            flex-direction: column;
+
+            .author-info {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .author-block {
+                    display: flex;
+                    align-items: center;
+                    gap: 8px;
+
+                    img {
+                        width: 24px;
+                        height: 24px;
+                        border-radius: 50%;
+                    }
+
+                    p {
+                        height: 20px;
+
+                        &.author {
+                            @include body-3;
+                            color: $text-text-base;
+                        }
+
+                        &.dot {
+                            display: flex;
+                            align-items: center;
+                            width: 4px;
+                            height: 4px;
+                            color: $icon-icon-subdued;
+                        }
+
+                        &.date {
+                            @include body-3;
+                            color: $text-text-subdued;
+                        }
+                    }
+                }
+                .save-icon {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    width: 40px;
+                    height: 40px;
+                }
+
+            }
+
+            .text-info {
+                .title {
+                    @include body-2;
+                    font-weight: 800;
+                    color: $text-text-base;
+                    margin-bottom: 8px;
+                }
+            }
+
+            .tags {
+                display: flex;
+                align-items: center;
+                height: 28px;
+                @include body-3;
+                color: $text-text-base;
+                .tag {
+                    padding: 4px 12px;
+                    border-radius: 100px;
+                    border: 1px solid $stroke-stroke-based;
+                }
             }
         }
     }

@@ -4,10 +4,12 @@ $background-background-primary: #18181B;
 $background-background-secondary: #27272A;
 $stroke-stroke-based: #27272A;
 $stroke-stroke-subdued: #27272A;
-$icon-icon-base: #fffffe;
+$icon-icon-base: #FFFFFE;
+$icon-icon-subdued: #A1A1AA;
 $text-text-subduedAlt: #71717A;
-$text-text-subdued: #a1a1aa;
-$text-text-base: #fffffe;
+$text-text-subdued: #A1A1AA;
+$text-text-base: #FFFFFE;
+$text-text-accent: #FF8906;
 
 @mixin headling-1 {
     font-family: 'Mulish';
