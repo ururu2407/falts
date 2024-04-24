@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/falts/static/css/main.4d8cebe0.css",
-    "main.js": "/falts/static/js/main.5624c3eb.js",
+    "main.js": "/falts/static/js/main.7a9ce2b7.js",
     "static/js/453.3d6798e9.chunk.js": "/falts/static/js/453.3d6798e9.chunk.js",
     "static/media/logo.svg": "/falts/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/falts/index.html",
     "main.4d8cebe0.css.map": "/falts/static/css/main.4d8cebe0.css.map",
-    "main.5624c3eb.js.map": "/falts/static/js/main.5624c3eb.js.map",
+    "main.7a9ce2b7.js.map": "/falts/static/js/main.7a9ce2b7.js.map",
     "453.3d6798e9.chunk.js.map": "/falts/static/js/453.3d6798e9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.4d8cebe0.css",
-    "static/js/main.5624c3eb.js"
+    "static/js/main.7a9ce2b7.js"
   ]
 }
