@@ -1,0 +1,92 @@
+@import '../../components/styles';
+
+.create-post {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+
+    .content {
+        width: 624px;
+        color: $text-text-base;
+        img {
+            width: 100%;
+        }
+        .icon-menu {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            .icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                border: 1px solid $icon-icon-base;
+                transition: all 0.3s ease;
+                &.plus {
+                    
+                    svg {
+                        width: 32px;
+                        height: 32px;
+                    }
+                }
+                &.image {
+                    opacity: 0;
+                }
+            }
+            &.active {
+                .icon {
+                    transition: all 0.3s ease;
+                    &.plus {
+                        rotate: 45deg;
+                    }
+                    &.image {
+                        opacity: 1;
+                    }
+                }
+            }
+        }
+
+        .editors {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            @include body-1;
+
+            h1 {
+                @include headling-1;
+            }
+
+            h2 {
+                @include headling-2;
+            }
+
+            h3 {
+                @include headling-3;
+            }
+        }
+    }
+}
+
+/* Placeholder (at the top) */
+.tiptap .is-empty:first-child::before {
+    color: $text-text-subduedAlt;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+}
+
+.ProseMirror {
+    outline: none;
+}
+
+#tippy-2,
+#tippy-6,
+#tippy-4 {
+    inset: 43px auto auto -66px !important;
+}

@@ -2,11 +2,11 @@
 
 header {
     padding: 20px 324px;
+    height: 40px;
     margin: 0;
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid $stroke-stroke-subdued;
-
     nav {
         display: flex;
         list-style: none;

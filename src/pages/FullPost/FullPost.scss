@@ -1,0 +1,105 @@
+@import '../../components/styles';
+
+.full-post {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 48px;
+
+    .content {
+        width: 624px;
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        .author-field {
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+
+            .title {
+                @include headling-1;
+                color: $text-text-base;
+            }
+
+            .info {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                .author-block {
+                    display: flex;
+                    gap: 8px;
+
+                    img {
+                        width: 44px;
+                        height: 44px;
+                        border-radius: 50%;
+                    }
+
+                    .author-info {
+                        .author {
+                            @include body-2;
+                            color: $text-text-base;
+                        }
+
+                        .date {
+                            @include body-3;
+                            color: $text-text-subdued;
+                        }
+                    }
+                }
+
+                .icons {
+                    display: flex;
+
+                    .icon {
+                        height: 40px;
+                        display: flex;
+                        align-items: center;
+                        padding: 0px 8px;
+                        gap: 8px;
+
+                        p {
+                            @include body-3;
+                            color: $text-text-subdued;
+                        }
+
+                        &.other {
+                            padding: 0;
+                            width: 40px;
+                            justify-content: center;
+                        }
+                    }
+                }
+            }
+
+            .tags {
+                display: flex;
+                gap: 8px;
+                @include body-3;
+                color: $text-text-base;
+
+                .tag {
+                    padding: 4px 12px;
+                    border-radius: 100px;
+                    border: 1px solid $stroke-stroke-based;
+                }
+            }
+        }
+        .text-field {
+            display: flex;
+            flex-direction: column;
+            gap: 56px;
+            .text {
+                @include body-1;
+                color: $text-text-base;
+            }
+            img {
+                width: 100%;
+                margin-bottom: 128px;
+            }
+        }
+    }
+}

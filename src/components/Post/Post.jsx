@@ -20,12 +20,17 @@ const formatDate = (dateString) => {
         return `${Math.floor(differenceInHours / 24)} дн тому`;
     }
 };
-
-export const Post = ({ id, title, date, text, image, user }) => {
+const truncateText = (text) => {
+    if (text.length >= 200) {
+        return text.substring(0, 200) + '...'
+    }
+    return text
+}
+export const Post = ({ id, title, date, text, image, user, tags }) => {
     const formattedDate = formatDate(date);
 
     return (
-        <Link to={`/post/${id}`}>
+        <Link to={`/falts/post/${id}`}>
             <div className='post' key={id}>
                 <div className='info'>
                     {user && (
@@ -34,7 +39,7 @@ export const Post = ({ id, title, date, text, image, user }) => {
                                 <img src={user.image} alt={user.fullName} />
                                 <div>
                                     <p className='author'>{user.fullName}</p>
-                                    <p className='date'>{formatDate(date)}</p>
+                                    <p className='date'>{formattedDate}</p>
                                 </div>
                             </div>
                             <div className='save-icon'>
@@ -44,11 +49,16 @@ export const Post = ({ id, title, date, text, image, user }) => {
                     )}
                     <div className='text-info'>
                         <h3 className='title'>{title}</h3>
-                        <ReactMarkdown className='text'>{text}</ReactMarkdown>
+                        <div className='text' dangerouslySetInnerHTML={{ __html: truncateText(text) }} />
+
                     </div>
-                    <div className='tags'>
-                        <div className='tag'>
-                            <p>Дизайн</p>
+                    <div className='actions'>
+                        <div className='tags'>
+                            {tags.map(tag => (
+                                <div key={tag.id} className='tag'>
+                                    <p>{tag.name}</p>
+                                </div>
+                            ))}
                         </div>
                         <div className='icons'>
                             <div className='icon comment'>
@@ -81,10 +91,10 @@ export const Post = ({ id, title, date, text, image, user }) => {
         </Link>
     )
 }
-export const PopularPost = ({ id, title, date, user }) => {
+export const PopularPost = ({ id, title, date, user, tags }) => {
     const formattedDate = formatDate(date);
     return (
-        <Link to={`/post/${id}`}>
+        <Link to={`/falts/post/${id}`}>
             <div className='popular-post'>
                 <div className='info'>
                     <div className='author-info'>
@@ -101,8 +111,14 @@ export const PopularPost = ({ id, title, date, user }) => {
                     <div className='text-info'>
                         <h3 className='title'>{title}</h3>
                     </div>
-                    <div className='tags'>
-                        <p className='tag'>Технології</p>
+                    <div className='actions'>
+                        <div className='tags'>
+                            {tags.map(tag => (
+                                <div key={tag.id} className='tag'>
+                                    <p>{tag.name}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>

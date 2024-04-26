@@ -67,7 +67,7 @@ a {
                 }
             }
 
-            .tags {
+            .actions {
                 @include body-3;
                 color: $text-text-base;
                 height: 40px;
@@ -75,23 +75,33 @@ a {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                .tag {
-                    padding: 4px 12px;
-                    border-radius: 100px;
-                    border: 1px solid $stroke-stroke-based;
+
+                .tags {
+                    display: flex;
+                    gap: 8px;
+                    flex-wrap: wrap;
+                    .tag {
+                        padding: 4px 12px;
+                        border-radius: 100px;
+                        border: 1px solid $stroke-stroke-based;
+                    }
                 }
+
                 .icons {
                     display: flex;
+
                     .icon {
                         height: 40px;
                         display: flex;
                         align-items: center;
                         padding: 0px 8px;
                         gap: 8px;
+
                         p {
                             @include body-3;
                             color: $text-text-subdued;
                         }
+
                         &.other {
                             padding: 0;
                             width: 40px;
@@ -161,6 +171,7 @@ a {
                         }
                     }
                 }
+
                 .save-icon {
                     display: flex;
                     align-items: center;
@@ -180,16 +191,23 @@ a {
                 }
             }
 
-            .tags {
+            .actions {
                 display: flex;
                 align-items: center;
                 height: 28px;
                 @include body-3;
                 color: $text-text-base;
-                .tag {
-                    padding: 4px 12px;
-                    border-radius: 100px;
-                    border: 1px solid $stroke-stroke-based;
+
+                .tags {
+                    display: flex;
+                    gap: 8px;
+                    flex-wrap: wrap;
+
+                    .tag {
+                        padding: 4px 12px;
+                        border-radius: 100px;
+                        border: 1px solid $stroke-stroke-based;
+                    }
                 }
             }
         }
