@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CreatePost.scss';
 import { Link } from 'react-router-dom';
-import { LogoIcon, CloseIcon, GalleryIcon, UnsplashIcon } from '../../icons';
+import { LogoIcon, CloseIcon, GalleryIcon, UnsplashIcon, BackIcon, SearchIcon, TagIcon, RemoveIcon } from '../../icons';
 import {
     BubbleMenu,
     EditorContent,
@@ -16,10 +16,22 @@ import Image from '@tiptap/extension-image'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import Placeholder from '@tiptap/extension-placeholder'
+import { Drawer } from '@mui/material';
 export const CreatePost = () => {
     const [user, setUser] = useState(null);
     const [title, setTitle] = useState('');
-    const [text, setText] = useState('');
+    const [tags, setTags] = useState([]);
+    const [open, setOpen] = useState(true);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [isActive, setIsActive] = useState(false);
+
+    const handleChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const toggleDrawer = (newOpen) => () => {
+        setOpen(newOpen);
+    };
 
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
@@ -29,22 +41,64 @@ export const CreatePost = () => {
     }, []);;
 
     const createPost = () => {
+        // Получаем массив объектов выбранных тегов в нужном формате
+        const selectedTags = tags.filter((tag) => tag.selected).map((tag) => ({
+            id: tag.id,
+            name: tag.name,
+        }));
         axios.post('https://04cb5470549a62ec.mokky.dev/posts', {
             title: editorTitle.getText(),
             text: editor.getHTML(),
             date: new Date().toISOString(),
             user_id: user.id,
-            tags: [
-
-            ],
+            tags: selectedTags,
         }).then(response => {
             console.log('Post created successfully:', response.data);
-
         }).catch(error => {
             console.error('Error creating post:', error);
         });
-    }
-    // Используем useEditor для создания редактора
+    };
+
+    useEffect(() => {
+        const fetchTags = async () => {
+            try {
+                const response = await axios.get(`https://04cb5470549a62ec.mokky.dev/tags`);
+                const updatedTags = response.data.map((tag) => ({
+                    ...tag,
+                    display: 'none', // Добавляем свойство display со значением 'none'
+                    selected: false,
+                }));
+                setTags(updatedTags);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchTags();
+    }, []);
+
+    useEffect(() => {
+        const filteredTags = tags.map((tag) => ({
+            ...tag,
+            display: tag.name.toLowerCase().includes(searchTerm.toLowerCase()) ? 'flex' : 'none',
+        }));
+        setTags(filteredTags);
+    }, [searchTerm]);
+
+    const handleTagSelection = (tagId) => {
+        setTags((prevTags) =>
+            prevTags.map((tag) =>
+                tag.id === tagId ? { ...tag, selected: !tag.selected } : tag
+            )
+        );
+    };
+
+    const removeTag = (tagId) => {
+        setTags((prevTags) =>
+            prevTags.map((tag) =>
+                tag.id === tagId ? { ...tag, selected: false } : tag
+            )
+        );
+    };
     const editorTitle = useEditor({
         extensions: [
             StarterKit,
@@ -75,7 +129,6 @@ export const CreatePost = () => {
           <p></p>
         `,
     });
-    const [isActive, setIsActive] = useState(false);
 
     const toggleActive = () => {
         setIsActive(!isActive);
@@ -101,6 +154,70 @@ export const CreatePost = () => {
             editor.chain().focus().setImage({ src: url }).run()
         }
     }
+
+    const DrawerList = (
+        <div className='drawer-list'>
+            <div className='drawer-title'>
+                <div className='drawer-title-icon'>
+                    <BackIcon />
+                </div>
+                <p>Налаштування публікації</p>
+            </div>
+            <div className='drawer-tags'>
+                <p>Додайте теми</p>
+                <div className='search'>
+                    <SearchIcon />
+                    <input type="text"
+                        placeholder='Пошук...'
+                        value={searchTerm}
+                        onChange={handleChange} />
+                </div>
+                {searchTerm === '' ? (
+                    <div className='results'>
+                        Ви можете додати існуючу тему або сторити нову.
+                    </div>
+                ) : (
+                    <>
+                        <div className='add-tag'>
+                            <TagIcon />
+                            <p>Додати тему “{searchTerm.charAt(0).toUpperCase() + searchTerm.slice(1)}”</p>
+                        </div>
+                        <div className='divider' />
+                        <div className='results'>
+                            <div className='tags'>
+                                <div className='menu'>
+                                    {tags.map((tag) => (
+                                        <div key={tag.id} className='tag' style={{ display: tag.display }}>
+                                            <input
+                                                type="checkbox"
+                                                id={tag.id}
+                                                checked={tag.selected}
+                                                onChange={() => handleTagSelection(tag.id)}
+                                            />
+                                            <label htmlFor={tag.id}>{tag.name}</label>
+                                        </div>
+                                    ))}
+                                    <div className='fade-top'></div>
+                                    <div className='fade-bot'></div>
+                                </div>
+                            </div>
+                        </div>
+                    </>
+                )}
+                <div className='selected-tags'>
+                    {tags.filter((tag) => tag.selected).map((tag) => (
+                        <div key={tag.id} className='tag'>
+                            <p>{tag.name}</p>
+                            <div className='remove-tag' onClick={() => removeTag(tag.id)}>
+                                <RemoveIcon />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+            <button onClick={createPost}>Створити публікацію</button>
+        </div>
+    )
     return (
         <>
             <header>
@@ -110,8 +227,12 @@ export const CreatePost = () => {
                     </Link>
                 </nav>
                 <nav className='nav-right'>
-                    <button onClick={createPost}>Create</button>
+                    <button onClick={toggleDrawer(true)}>Create</button>
+                    <Drawer anchor={'right'} open={open} onClose={toggleDrawer(false)}>
+                        {DrawerList}
+                    </Drawer>
                 </nav>
+
             </header>
             <div className='create-post'>
                 <div className='content'>

@@ -6,11 +6,12 @@ $stroke-stroke-based: #27272A;
 $stroke-stroke-subdued: #27272A;
 $icon-icon-base: #FFFFFE;
 $icon-icon-subdued: #A1A1AA;
+$icon-icon-accent: #FF8906;
 $text-text-subduedAlt: #71717A;
 $text-text-subdued: #A1A1AA;
 $text-text-base: #FFFFFE;
 $text-text-accent: #FF8906;
-
+$fill-fill-subdued: #71717A;
 @mixin headling-1 {
     font-family: 'Mulish';
     font-size: 36px;
