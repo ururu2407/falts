@@ -1,16 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './header.scss';
 import { LogoIcon, SearchIcon, WriteIcon, SaveIcon, NotificationsIcon } from '../../icons';
+import Menu from '@mui/material/Menu';
+import Avatar from '@mui/material/Avatar';
 
 export const Header = ({ handleSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
-
+  const [user, setUser] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
     handleSearch(event.target.value);
   };
+  useEffect(() => {
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
   return (
     <header>
       <nav className='nav-left'>
@@ -27,22 +47,60 @@ export const Header = ({ handleSearch }) => {
           />
         </div>
       </nav>
-      <Link to={'/falts/login'}>Login</Link>
-      <Link to={'/falts/registration'}>Registration</Link>
-      <nav className='nav-right'>
-        <Link to={'/falts/write'}>
+      {user ? (
+        <nav className='nav-right'>
+          <Link to={'/falts/write'}>
+            <li>
+              <WriteIcon />
+              <p>Писати</p>
+            </li>
+          </Link>
           <li>
-            <WriteIcon />
-            <p>Писати</p>
+            <SaveIcon />
           </li>
-        </Link>
-        <li>
-          <SaveIcon />
-        </li>
-        <li>
-          <NotificationsIcon />
-        </li>
-      </nav>
+          <li>
+            <NotificationsIcon />
+          </li>
+          <li>
+            <Avatar onClick={handleOpenUserMenu} src={user?.image} />
+            <Menu
+              sx={{ mt: '45px' }}
+              id="menu-appbar"
+              anchorEl={anchorElUser}
+              anchorOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              open={Boolean(anchorElUser)}
+              onClose={handleCloseUserMenu}
+            >
+              <div className='user-menu'>
+                <p onClick={handleCloseUserMenu}>{user?.fullName}</p>
+                <p onClick={handleCloseUserMenu}>Moї Пости</p>
+                <p onClick={logout}>Вийти</p>
+              </div>
+            </Menu>
+          </li>
+        </nav>
+      ) : (
+        <nav className='nav-right-unlogged'>
+          <li>Про нас</li>
+          <li>Контакти</li>
+          <Link to={'/falts/login'}>
+            <li>Увійти</li>
+          </Link>
+          <Link to={'/falts/registration'}>
+            <li className='btn'>
+              Зареєструватись
+            </li>
+          </Link>
+        </nav>
+      )}
     </header>
   );
 };

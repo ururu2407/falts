@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import './App.scss';
 import { Header } from './components/Header/Header';
 import { Routes, Route, useLocation } from 'react-router-dom'; // Импортируем useLocation
@@ -27,6 +26,7 @@ function App() {
         <Route path='/falts/post/:id' element={<FullPost />} />
         <Route path='/falts/write' element={<CreatePost />} />
       </Routes>
+      <footer/>
     </>
   );
 }

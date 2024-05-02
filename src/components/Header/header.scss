@@ -7,6 +7,7 @@ header {
     display: flex;
     justify-content: space-between;
     border-bottom: 1px solid $stroke-stroke-subdued;
+
     nav {
         display: flex;
         list-style: none;
@@ -69,5 +70,49 @@ header {
                 }
             }
         }
+
+        &.nav-right-unlogged {
+            display: flex;
+
+            li {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding: 8px 24px;
+                @include body-2;
+                color: $text-text-subdued;
+                cursor: pointer;
+
+                &.btn {
+                    padding: 0;
+                    margin-left: 24px;
+                    width: 189px;
+                    height: 40px;
+                    background: $buttonBackground-buttonBackground-neutral;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 100px;
+                    border: none;
+                    color: $text-text-inverse;
+                }
+            }
+        }
     }
+}
+
+.MuiMenu-paper {
+    background-color: $background-background-secondary !important;
+    border-radius: 4px;
+    padding: 16px;
+    .user-menu {
+        @include body-3;
+        color: $text-text-base;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;    
+    }
+}
+.MuiList-root {
+    padding: 0!important;
 }

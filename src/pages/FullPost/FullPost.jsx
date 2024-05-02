@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import './FullPost.scss'
 import { SelectedIcon, CommentsIcon, LikeIcon, OtherIcon } from '../../icons';
-import ReactMarkdown from 'react-markdown';
 const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
@@ -32,6 +31,7 @@ export const FullPost = () => {
                     title: post.title,
                     text: post.text,
                     image: post.image,
+                    tags: post.tags,
                     date: post.date,
                     user: {
                         id: user.id,
@@ -81,14 +81,14 @@ export const FullPost = () => {
                         </div>
                     </div>
                     <div className='tags'>
-                        <p className='tag'>Дизайн</p>
-                        <p className='tag'>Психологія</p>
-                        <p className='tag'>Кольори</p>
+                        {postWithUser?.tags.map(tag => (
+                            <div className='tag'>{tag.name}</div>
+                        ))}
                     </div>
                 </div>
                 <div className='text-field'>
                     <div className='text' dangerouslySetInnerHTML={{ __html: postWithUser?.text }} />
-                    <img src={postWithUser?.image} alt="" />
+                    <img className='post-image' src={postWithUser?.image} alt="" />
                 </div>
             </div>
         </div>)
