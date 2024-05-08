@@ -10,7 +10,7 @@ const formatDate = (dateString) => {
     const differenceInHours = Math.floor(differenceInMinutes / 60);
 
     if (differenceInMinutes < 1) {
-        return 'Только что';
+        return 'Нещодавно';
     } else if (differenceInMinutes < 60) {
         return `${differenceInMinutes} хв тому`;
     } else if (differenceInHours < 24) {

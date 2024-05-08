@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CreatePost.scss';
-import { Link } from 'react-router-dom';
+import { Link, Navigate   } from 'react-router-dom';
 import {
     LogoIcon,
     CloseIcon,
@@ -38,6 +38,7 @@ import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
 import Placeholder from '@tiptap/extension-placeholder'
 import { Drawer } from '@mui/material';
+
 export const CreatePost = () => {
     const [user, setUser] = useState(null);
     const [tags, setTags] = useState([]);
@@ -50,6 +51,7 @@ export const CreatePost = () => {
     const [searchResults, setSearchResults] = useState([]);
     const imagesToShow = searchResults.slice(blockIndex * 9, blockIndex * 9 + 9);
     const showMoreButton = blockIndex * 3 + 3 < searchResults.length;
+    const [redirect, setRedirect] = useState(false);
 
     const handleChange = (event) => {
         setSearchTerm(event.target.value);
@@ -81,11 +83,14 @@ export const CreatePost = () => {
             tags: selectedTags,
         }).then(response => {
             console.log('Post created successfully:', response.data);
+            setRedirect(true);
+
         }).catch(error => {
             console.error('Error creating post:', error);
         });
-    };
 
+    };
+    
     useEffect(() => {
         const fetchTags = async () => {
             try {
@@ -256,6 +261,9 @@ export const CreatePost = () => {
     const handleShowPrev = () => {
         setBlockIndex((prevIndex) => prevIndex - 1);
     };
+    if (redirect) {
+        return <Navigate to="/falts/" />;
+    }
     const DrawerList = (
         <div className='drawer-list'>
             <div className='drawer-title'>

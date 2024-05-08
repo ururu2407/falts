@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { Post, PopularPost } from '../../components/Post/Post';
 import { PlusIcon } from '../../icons';
 import './home.scss';
 import { Header } from '../../components/Header/Header';
+
 export const Home = () => {
     const [data, setData] = useState([]);
     const [users, setUsers] = useState([]);
@@ -13,13 +14,8 @@ export const Home = () => {
     const [initialData, setInitialData] = useState([]);
     const [tags, setTags] = useState([]);
     const [selectedTags, setSelectedTags] = useState([]); // Выбранные теги
-
-    useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            setCurrentUser(JSON.parse(storedUser));
-        }
-    }, []);
+    const [activeTag, setActiveTag] = useState(false);
+    const tagsDropdownRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,16 +25,34 @@ export const Home = () => {
                     axios.get('https://04cb5470549a62ec.mokky.dev/users'),
                     axios.get('https://04cb5470549a62ec.mokky.dev/tags')
                 ]);
+                const updatedTags = tagsResponse.data.map((tag) => ({
+                    ...tag,
+                    selected: localStorage.getItem(`tag_${tag.id}`) === 'true', // Используем localStorage для восстановления состояния выбранных тегов
+                }));
                 setUsers(usersResponse.data);
                 setData(postsResponse.data);
                 setInitialData(postsResponse.data);
-                setTags(tagsResponse.data);
+                setTags(updatedTags);
             } catch (error) {
                 console.error('Error fetching data:', error);
             }
         };
         fetchData();
     }, []);
+
+    const handleTagToggle = (tagId) => {
+        setTags((prevTags) =>
+            prevTags.map((tag) =>
+                tag.id === tagId ? { ...tag, selected: !tag.selected } : tag
+            )
+        );
+    };
+
+    useEffect(() => {
+        setSelectedTags(tags.filter((tag) => tag.selected));
+        // Сохраняем состояние выбранных тегов в localStorage
+        tags.forEach(tag => localStorage.setItem(`tag_${tag.id}`, tag.selected));
+    }, [tags]);
 
     useEffect(() => {
         if (searchTerm === '') {
@@ -60,15 +74,28 @@ export const Home = () => {
         setSearchTerm(value);
     };
 
-    const handleTagSelect = (tag) => {
-        setSelectedTags([...selectedTags, tag]);
-    };
-
     const handleTagClick = (tag) => {
-        // Фильтруем статьи по выбранному тегу
         const filteredData = initialData.filter(post => post.tags.some(postTag => postTag.name === tag.name));
         setData(filteredData);
     };
+
+    const handleActiveTag = () => {
+        setActiveTag(!activeTag);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (tagsDropdownRef.current && !tagsDropdownRef.current.contains(event.target)) {
+                setActiveTag(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, []);
 
     return (
         <>
@@ -83,25 +110,33 @@ export const Home = () => {
                 <div className='divider'></div>
                 <nav className='my-tags'>
                     <li className='addTag'>
-                        <PlusIcon />
-                        <ul className="tag-dropdown">
-                            {tags.map((tag, index) => (
-                                <li key={index} onClick={() => handleTagSelect(tag)}>{tag.name}</li>
-                            ))}
-                        </ul>
+                        <div onClick={handleActiveTag}>
+                            <PlusIcon />
+                        </div>
+                        <div ref={tagsDropdownRef} className={`tags-dropdown ${activeTag ? 'active' : ''}`}>
+                            <ul className={`tag-dropdown ${activeTag ? 'active' : ''}`}>
+                                {tags.map((tag, index) => (
+                                    <div key={index} className='tag'>
+                                        <input
+                                            type="checkbox"
+                                            id={tag.id}
+                                            checked={tag.selected}
+                                            onChange={() => handleTagToggle(tag.id)}
+                                        />
+                                        <label htmlFor={tag.id}>{tag.name}</label>
+                                    </div>
+                                ))}
+                            </ul>
+                            <div className='fade-top'></div>
+                            <div className='fade-bot'></div>
+                        </div>
                     </li>
-                    {/* Отображаем выбранные теги */}
                     {selectedTags.map((tag, index) => (
                         <li key={index} onClick={() => handleTagClick(tag)}>{tag.name}</li>
                     ))}
                 </nav>
             </div>
             <div className='main'>
-                {/* <div>
-                <Link to='/write' style={{ textDecoration: "none" }}>
-                    Create Post
-                </Link>
-            </div> */}
                 <div className='home-content'>
                     <div className='posts'>
                         {data.map((post, index) => (
@@ -115,7 +150,6 @@ export const Home = () => {
                                         image={post.image}
                                         id={post.id}
                                         tags={post.tags} />
-                                    {/* Отображаем кнопку "Изменить" только если текущий пользователь создал этот пост */}
                                     {currentUser && currentUser.id === post.user_id && (
                                         <Link to={`/falts/write/${post.id}`} style={{ textDecoration: "none" }}>
                                             <button>Edit</button>
