@@ -26,10 +26,11 @@ header {
                 width: 100%;
                 padding: 9px 12px;
                 background: $background-background-secondary;
-                border: 1px solid $stroke-stroke-based;
+                border: 2px solid $stroke-stroke-based;
                 border-radius: 12px;
                 display: flex;
                 gap: 12px;
+                transition: 0.3s ease;
 
                 svg {
                     path {
@@ -50,6 +51,11 @@ header {
                         color: $text-text-subduedAlt;
                         opacity: 1;
                     }
+                }
+
+                &:focus-within {
+                    border: 2px solid $stroke-stroke-accent;
+                    transition: 0.3s ease;
                 }
             }
         }
@@ -105,14 +111,16 @@ header {
     background-color: $background-background-secondary !important;
     border-radius: 4px;
     padding: 16px;
+
     .user-menu {
         @include body-3;
         color: $text-text-base;
         display: flex;
         flex-direction: column;
-        gap: 16px;    
+        gap: 16px;
     }
 }
+
 .MuiList-root {
-    padding: 0!important;
+    padding: 0 !important;
 }

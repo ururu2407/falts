@@ -1,0 +1,154 @@
+@import '../styles.scss';
+
+body.modal-open-1, .modal-open-2 {
+    overflow: hidden;
+}
+
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    display: none;
+
+    .backdrop-content {
+        width: 408px;
+        min-height: 376px;
+        padding-bottom: 40px;
+        background-color: $background-background-primary;
+        border: 1px solid $stroke-stroke-based;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        .backdrop-header {
+            padding-bottom: 16px;
+            display: flex;
+            width: 100%;
+            justify-content: flex-end;
+
+            .backdrop-icon {
+                width: 40px;
+                height: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+            }
+        }
+
+        .backdrop-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 32px;
+
+            h3 {
+                @include headling-3;
+                color: $text-text-base;
+            }
+
+            .fields {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+
+                .field {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 8px;
+
+                    p {
+                        @include body-3;
+                        color: $text-text-base;
+                        font-weight: 500;
+                    }
+
+                    .input {
+                        display: flex;
+                        width: 260px;
+                        height: 20px;
+                        padding: 8px 12px;
+                        align-items: center;
+                        gap: 12px;
+                        border-radius: 12px;
+                        border: 2px solid $stroke-stroke-based;
+                        background-color: $background-background-secondary;
+                        transition: 0.3s ease;
+
+                        input {
+                            @include body-3;
+                            color: $text-text-base;
+                            width: 100%;
+                            background-color: $background-background-secondary;
+                            outline: none;
+                            border: none;
+                            padding: 0;
+
+                            &::placeholder {
+                                color: $text-text-subduedAlt;
+                            }
+                        }
+
+                        &:focus-within {
+                            border: 2px solid $stroke-stroke-accent;
+                            transition: 0.3s ease;
+                        }
+
+                        .eye {
+                            width: 20px;
+                            height: 20px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+            }
+
+            .backdrop-submit {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+
+                button {
+                    @include body-2;
+                    color: $text-text-inverse;
+                    width: fit-content;
+                    display: flex;
+                    padding: 8px 24px;
+                    justify-content: center;
+                    align-items: center;
+                    border-radius: 100px;
+                    background-color: $buttonBackground-buttonBackground-neutral;
+                    border: none;
+                    cursor: pointer;
+                }
+
+                p {
+                    @include body-3;
+                    color: $text-text-base;
+
+                    span {
+                        cursor: pointer;
+                        color: $text-text-accent;
+                    }
+                }
+            }
+        }
+
+    }
+}
+
+.backdrop.open {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.error-message {
+ @include body-3;
+    color: #c53636;
+}

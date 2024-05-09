@@ -4,11 +4,16 @@ import './header.scss';
 import { LogoIcon, SearchIcon, WriteIcon, SaveIcon, NotificationsIcon } from '../../icons';
 import Menu from '@mui/material/Menu';
 import Avatar from '@mui/material/Avatar';
+import { BackdropLogin } from '../Login-Register/Login';
+import { BackdropRegistertion } from '../Login-Register/Registration';
 
 export const Header = ({ handleSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [user, setUser] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
+  const [loginModalOpen, setLoginModalOpen] = useState(false);
+  const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
+
   const handleChange = (event) => {
     setSearchTerm(event.target.value);
     handleSearch(event.target.value);
@@ -31,6 +36,28 @@ export const Header = ({ handleSearch }) => {
     localStorage.removeItem("user");
     setUser(null);
   };
+  const handleLoginModalOpen = () => {
+    setLoginModalOpen(true);
+  };
+
+  const handleLoginModalClose = () => {
+    setLoginModalOpen(false);
+  };
+  const handleRegistrationModalOpen = () => {
+    setRegistrationModalOpen(true);
+  };
+
+  const handleRegistrationModalClose = () => {
+    setRegistrationModalOpen(false);
+  };
+  const haveNoAccount = () => {
+    setLoginModalOpen(false);
+    setRegistrationModalOpen(true);
+  }
+  const haveAccount = () => {
+    setRegistrationModalOpen(false);
+    setLoginModalOpen(true);
+  }
   return (
     <header>
       <nav className='nav-left'>
@@ -91,16 +118,18 @@ export const Header = ({ handleSearch }) => {
         <nav className='nav-right-unlogged'>
           <li>Про нас</li>
           <li>Контакти</li>
-          <Link to={'/falts/login'}>
-            <li>Увійти</li>
-          </Link>
-          <Link to={'/falts/registration'}>
-            <li className='btn'>
-              Зареєструватись
-            </li>
-          </Link>
+          <li onClick={handleLoginModalOpen}>Увійти</li>
+          <li className='btn' onClick={handleRegistrationModalOpen}>Зареєструватись</li>
         </nav>
       )}
+      <BackdropLogin open={loginModalOpen}
+        onClick={handleLoginModalClose}
+        account={haveNoAccount} 
+        onClose={handleLoginModalClose}/>
+      <BackdropRegistertion open={registrationModalOpen}
+        onClick={handleRegistrationModalClose}
+        account={haveAccount} 
+        onClose={handleRegistrationModalClose}/>
     </header>
   );
 };

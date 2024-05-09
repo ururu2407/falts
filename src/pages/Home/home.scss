@@ -25,7 +25,8 @@
         li {
             display: flex;
             align-items: center;
-cursor: pointer;
+            cursor: pointer;
+
             &.addTag {
                 height: 40px;
                 position: relative;
@@ -100,6 +101,7 @@ cursor: pointer;
     padding: 6px 12px;
     border-radius: 8px;
     display: none;
+
     &.active {
         display: block;
     }
