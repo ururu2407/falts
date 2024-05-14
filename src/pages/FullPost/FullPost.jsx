@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios'
 import './FullPost.scss'
 import { SelectedIcon, CommentsIcon, LikeIcon, OtherIcon } from '../../icons';
+import { Header } from '../../components/Header/Header';
 const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = date.getDate().toString().padStart(2, '0');
@@ -47,49 +48,54 @@ export const FullPost = () => {
         }
         fetchPostWithUser()
     }, [params.id])
+
     const formattedDate = formatDate(postWithUser?.date);
     return (
-        <div className='full-post'>
-            <div className='content'>
-                <div className='author-field'>
-                    <h1 className='title'>{postWithUser?.title}</h1>
-                    <div className='info'>
-                        {postWithUser && (
-                            <div className='author-block'>
-                                <img src={postWithUser.user.image} alt={postWithUser.user.fullName} />
-                                <div className='author-info'>
-                                    <p className='author'>{postWithUser.user.fullName}</p>
-                                    <p className='date'>{formattedDate}</p>
+        <>
+            <Header />
+            <div className='full-post'>
+                <div className='content'>
+                    <div className='author-field'>
+                        <h1 className='title'>{postWithUser?.title}</h1>
+                        <div className='info'>
+                            {postWithUser && (
+                                <div className='author-block'>
+                                    <img src={postWithUser.user.image} alt={postWithUser.user.fullName} />
+                                    <div className='author-info'>
+                                        <p className='author'>{postWithUser.user.fullName}</p>
+                                        <p className='date'>{formattedDate}</p>
+                                    </div>
+                                </div>
+                            )}
+                            <div className='icons'>
+                                <div className='icon comment'>
+                                    <CommentsIcon />
+                                    <p>32</p>
+                                </div>
+                                <div className='icon like'>
+                                    <LikeIcon />
+                                    <p>160</p>
+                                </div>
+                                <div className='icon save'>
+                                    <SelectedIcon />
+                                </div>
+                                <div className='icon other'>
+                                    <OtherIcon />
                                 </div>
                             </div>
-                        )}
-                        <div className='icons'>
-                            <div className='icon comment'>
-                                <CommentsIcon />
-                                <p>32</p>
-                            </div>
-                            <div className='icon like'>
-                                <LikeIcon />
-                                <p>160</p>
-                            </div>
-                            <div className='icon save'>
-                                <SelectedIcon />
-                            </div>
-                            <div className='icon other'>
-                                <OtherIcon />
-                            </div>
+                        </div>
+                        <div className='tags'>
+                            {postWithUser?.tags.map(tag => (
+                                <div className='tag'>{tag.name}</div>
+                            ))}
                         </div>
                     </div>
-                    <div className='tags'>
-                        {postWithUser?.tags.map(tag => (
-                            <div className='tag'>{tag.name}</div>
-                        ))}
+                    <div className='text-field'>
+                        <div className='text' dangerouslySetInnerHTML={{ __html: postWithUser?.text }} />
+                        <img className='post-image' src={postWithUser?.image} alt="" />
                     </div>
                 </div>
-                <div className='text-field'>
-                    <div className='text' dangerouslySetInnerHTML={{ __html: postWithUser?.text }} />
-                    <img className='post-image' src={postWithUser?.image} alt="" />
-                </div>
             </div>
-        </div>)
+        </>
+    )
 }

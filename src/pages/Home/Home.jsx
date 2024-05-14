@@ -13,7 +13,7 @@ export const Home = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [initialData, setInitialData] = useState([]);
     const [tags, setTags] = useState([]);
-    const [selectedTags, setSelectedTags] = useState([]); // Выбранные теги
+    const [selectedTags, setSelectedTags] = useState([]);
     const [activeTag, setActiveTag] = useState(false);
     const tagsDropdownRef = useRef(null);
 
@@ -27,7 +27,7 @@ export const Home = () => {
                 ]);
                 const updatedTags = tagsResponse.data.map((tag) => ({
                     ...tag,
-                    selected: localStorage.getItem(`tag_${tag.id}`) === 'true', // Используем localStorage для восстановления состояния выбранных тегов
+                    selected: localStorage.getItem(`tag_${tag.id}`) === 'true',
                 }));
                 setUsers(usersResponse.data);
                 setData(postsResponse.data);
@@ -50,7 +50,6 @@ export const Home = () => {
 
     useEffect(() => {
         setSelectedTags(tags.filter((tag) => tag.selected));
-        // Сохраняем состояние выбранных тегов в localStorage
         tags.forEach(tag => localStorage.setItem(`tag_${tag.id}`, tag.selected));
     }, [tags]);
 
@@ -96,21 +95,28 @@ export const Home = () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
     }, []);
+    function handleActiveFilterPost(event) {
+        const navItems = document.querySelectorAll('.filter');
+        navItems.forEach(item => {
+            item.classList.remove('active');
+        });
 
+        event.target.classList.add('active');
+    }
     return (
         <>
             <Header handleSearch={handleSearch} />
             <div className='sidebar'>
                 <nav className='filter-posts'>
-                    <li className='active'>Моя Стрічка</li>
-                    <li>Слідкую</li>
-                    <li>Популярне</li>
-                    <li>Нове</li>
+                    <li className='filter active' onClick={handleActiveFilterPost}>Моя Стрічка</li>
+                    <li className='filter' onClick={handleActiveFilterPost}>Слідкую</li>
+                    <li className='filter' onClick={handleActiveFilterPost}>Популярне</li>
+                    <li className='filter' onClick={handleActiveFilterPost}>Нове</li>
                 </nav>
                 <div className='divider'></div>
                 <nav className='my-tags'>
                     <li className='addTag'>
-                        <div onClick={handleActiveTag}>
+                        <div className='plus' onClick={handleActiveTag}>
                             <PlusIcon />
                         </div>
                         <div ref={tagsDropdownRef} className={`tags-dropdown ${activeTag ? 'active' : ''}`}>
@@ -132,7 +138,9 @@ export const Home = () => {
                         </div>
                     </li>
                     {selectedTags.map((tag, index) => (
-                        <li key={index} onClick={() => handleTagClick(tag)}>{tag.name}</li>
+                        <div className='filter-tags' key={index} onClick={() => handleTagClick(tag)}>
+                            <li className='filter' onClick={handleActiveFilterPost}>{tag.name}</li>
+                        </div>
                     ))}
                 </nav>
             </div>
@@ -176,9 +184,9 @@ export const Home = () => {
                             </React.Fragment>
                         ))}
                     </div>
-
                 </div>
             </div>
+
         </>
     )
 }

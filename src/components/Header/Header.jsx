@@ -61,7 +61,7 @@ export const Header = ({ handleSearch }) => {
   return (
     <header>
       <nav className='nav-left'>
-        <Link to={'/falts/'} style={{ textDecoration: 'none', height: '24px' }}>
+        <Link to={'/falts/home'} style={{ textDecoration: 'none', height: '24px' }}>
           <LogoIcon />
         </Link>
         <div className='search'>

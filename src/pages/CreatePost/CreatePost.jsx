@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './CreatePost.scss';
-import { Link, Navigate   } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import {
     LogoIcon,
     CloseIcon,
@@ -88,9 +88,8 @@ export const CreatePost = () => {
         }).catch(error => {
             console.error('Error creating post:', error);
         });
-
     };
-    
+
     useEffect(() => {
         const fetchTags = async () => {
             try {
@@ -146,8 +145,8 @@ export const CreatePost = () => {
 
         ],
         content: `
-            <h1></h1>
-        `,
+        <h1></h1>
+    `,
     });
     const editor = useEditor({
         extensions: [
@@ -163,8 +162,8 @@ export const CreatePost = () => {
 
         ],
         content: `
-          <p></p>
-        `,
+        <p></p>
+    `,
     });
 
     const toggleActive = () => {
@@ -251,10 +250,6 @@ export const CreatePost = () => {
         setSearchResults([]);
     };
 
-
-
-
-    // Обработчик нажатия кнопки "Показать больше"
     const handleShowMore = () => {
         setBlockIndex((prevIndex) => prevIndex + 1);
     };
@@ -376,49 +371,49 @@ export const CreatePost = () => {
                                 onClick={() => editor.chain().focus().toggleBold().run()}
                                 className={editor.isActive('bold') ? 'is-active' : ''}
                             >
-                                <BoldIcon/>
+                                <BoldIcon />
                             </button>
                             <button
                                 onClick={() => editor.chain().focus().toggleItalic().run()}
                                 className={editor.isActive('italic') ? 'is-active' : ''}
                             >
-                                <ItalicIcon/>
+                                <ItalicIcon />
                             </button>
                             <button
                                 onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
                                 className={editor.isActive('heading', { level: 1 }) ? 'is-active' : ''}
                             >
-                                <H1Icon/>
+                                <H1Icon />
                             </button>
                             <button
                                 onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
                                 className={editor.isActive('heading', { level: 2 }) ? 'is-active' : ''}
                             >
-                                <H2Icon/>
+                                <H2Icon />
                             </button>
                             <button
                                 onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
                                 className={editor.isActive('heading', { level: 3 }) ? 'is-active' : ''}
                             >
-                                <H3Icon/>
+                                <H3Icon />
                             </button>
                             <button
                                 onClick={() => editor.chain().focus().toggleCodeBlock().run()}
                                 className={editor.isActive('codeBlock') ? 'is-active' : ''}
                             >
-                                <CodeBlockIcon/>
+                                <CodeBlockIcon />
                             </button>
                             <button
                                 onClick={() => editor.chain().focus().toggleBulletList().run()}
                                 className={editor.isActive('bulletList') ? 'is-active' : ''}
                             >
-                                <BulletListIcon/>
+                                <BulletListIcon />
                             </button>
                             <button
                                 onClick={() => editor.chain().focus().toggleOrderedList().run()}
                                 className={editor.isActive('orderedList') ? 'is-active' : ''}
                             >
-                                <NumberedListIcon/>
+                                <NumberedListIcon />
                             </button>
                         </BubbleMenu>
                     )}

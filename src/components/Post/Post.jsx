@@ -77,15 +77,6 @@ export const Post = ({ id, title, date, text, image, user, tags }) => {
                 <div className='image'>
                     <img src={image} alt={title} />
                 </div>
-                {/* Отображаем информацию о пользователе */}
-
-                {/* Предполагается, что ссылка на профиль пользователя доступна */}
-                {/* {user && (
-                <Link to={`/profile/${user.id}`} style={{ textDecoration: "none" }}>
-                    Посмотреть профиль
-                </Link>
-            )} */}
-                {/* Если вы хотите отобразить кнопку "Изменить" только для авторизованных пользователей, то можно добавить такую проверку */}
             </div>
         </Link>
     )
@@ -117,6 +108,61 @@ export const PopularPost = ({ id, title, date, user, tags }) => {
                                     <p>{tag.name}</p>
                                 </div>
                             ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Link>
+    )
+}
+
+export const FirstVisitPost = ({ id, title, date, text, user, tags }) => {
+    const formattedDate = formatDate(date);
+    const firstTag = tags[0];
+
+    return (
+        <Link to={`/falts/post/${id}`}>
+            <div className='first-visit' key={id}>
+                <div className='info'>
+                    {user && (
+                        <div className='author-info'>
+                            <div className='author-block'>
+                                <img src={user.image} alt={user.fullName} />
+                                <div>
+                                    <p className='author'>{user.fullName}</p>
+                                    <p className='date'>{formattedDate}</p>
+                                </div>
+                            </div>
+                            <div className='save-icon'>
+                                <SelectedIcon />
+                            </div>
+                        </div>
+                    )}
+                    <div className='text-info'>
+                        <h3 className='title'>{title}</h3>
+                        <div className='text' dangerouslySetInnerHTML={{ __html: text }} />
+
+                    </div>
+                    <div className='actions'>
+                        <div className='tags'>
+                            {firstTag && (
+                                <div key={firstTag.id} className='tag'>
+                                    <p>{firstTag.name}</p>
+                                </div>
+                            )}
+                        </div>
+                        <div className='icons'>
+                            <div className='icon comment'>
+                                <CommentsIcon />
+                                <p>32</p>
+                            </div>
+                            <div className='icon like'>
+                                <LikeIcon />
+                                <p>160</p>
+                            </div>
+                            <div className='icon other'>
+                                <OtherIcon />
+                            </div>
                         </div>
                     </div>
                 </div>

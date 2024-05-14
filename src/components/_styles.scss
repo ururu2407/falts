@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap');
 
 $background-background-primary: #18181B;
 $background-background-secondary: #27272A;
@@ -15,6 +16,8 @@ $text-text-accent: #FF8906;
 $text-text-inverse: #18181B;
 $fill-fill-subdued: #71717A;
 $buttonBackground-buttonBackground-neutral: #FFFFFE;
+$buttonBackground-buttonBackground-accent: #FF8906;
+
 @mixin headling-1 {
     font-family: 'Mulish';
     font-size: 36px;
@@ -56,4 +59,11 @@ $buttonBackground-buttonBackground-neutral: #FFFFFE;
     font-weight: 400;
     line-height: 20px;
     letter-spacing: 0.25px;
+}
+@mixin unbounded-1 {
+    font-family: 'Unbounded';
+    font-size: 56px;
+    font-weight: 400;
+    line-height: 78px;
+    letter-spacing: 0;
 }

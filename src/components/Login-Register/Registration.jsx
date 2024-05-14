@@ -32,7 +32,6 @@ export const BackdropRegistertion = ({ open, onClick, account, onClose }) => {
                 password: password
             });
             console.log("Registration successful!", response.data);
-            // Вызов функции для входа пользователя после успешной регистрации
             loginUser(email, password);
         } catch (error) {
             if (error.response && error.response.status === 401) {
