@@ -180,11 +180,51 @@
                     gap: 24px;
 
                     &.first {
-                        transform: translateY(-30%);
+                        animation: moveDown 14s infinite alternate;
                     }
+
+                    &.second {
+                        animation: moveUp 14s infinite alternate;
+                    }
+
+                    &.third {
+                        animation: moveDown 14s infinite alternate;
+                    }
+                }
+
+                &:hover .column {
+                    animation-play-state: paused;
                 }
             }
         }
+    }
+}
+
+@keyframes moveDown {
+    0% {
+        transform: translateY(0%);
+    }
+
+    50% {
+        transform: translateY(-57%);
+    }
+
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes moveUp {
+    0% {
+        transform: translateY(-57%);
+    }
+
+    50% {
+        transform: translateY(0%);
+    }
+
+    100% {
+        transform: translateY(-57%);
     }
 }
 

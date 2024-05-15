@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { BackdropLogin } from '../../components/Login-Register/Login';
 import { BackdropRegistertion } from '../../components/Login-Register/Registration';
 import { LogoIcon, VectorIcon, DawnIcon, ArrowRightIcon } from '../../icons';
@@ -11,6 +11,7 @@ export const FirstVisit = () => {
     const [registrationModalOpen, setRegistrationModalOpen] = useState(false);
     const [users, setUsers] = useState([]);
     const [data, setData] = useState([]);
+    const navigate = useNavigate(); // Hook for navigation
 
     const handleLoginModalOpen = () => {
         setLoginModalOpen(true);
@@ -50,6 +51,12 @@ export const FirstVisit = () => {
         };
         fetchData();
     }, []);
+    useEffect(() => {
+        const isLoggedIn = localStorage.getItem('user');
+        if (isLoggedIn) {
+            navigate('/falts/home'); // Replace with your target path
+        }
+    }, [navigate]);
     return (
         <div className='first-visit'>
             <div className='left-block'>
