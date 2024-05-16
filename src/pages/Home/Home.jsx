@@ -78,6 +78,15 @@ export const Home = () => {
         setData(filteredData);
     };
 
+    const handlePopularClick = () => {
+        setData(initialData);
+    }
+
+    const handleNewClick = () => {
+        const newData = [...initialData].sort((a, b) => new Date(b.date) - new Date(a.date));
+        setData(newData);
+    }
+
     const handleActiveTag = () => {
         setActiveTag(!activeTag);
     };
@@ -108,10 +117,18 @@ export const Home = () => {
             <Header handleSearch={handleSearch} />
             <div className='sidebar'>
                 <nav className='filter-posts'>
-                    <li className='filter active' onClick={handleActiveFilterPost}>Моя Стрічка</li>
-                    <li className='filter' onClick={handleActiveFilterPost}>Слідкую</li>
-                    <li className='filter' onClick={handleActiveFilterPost}>Популярне</li>
-                    <li className='filter' onClick={handleActiveFilterPost}>Нове</li>
+                    <div onClick={handlePopularClick}>
+                        <li className='filter active' onClick={handleActiveFilterPost} >Моя Стрічка</li>
+                    </div>
+                    <div onClick={handlePopularClick}>
+                        <li className='filter' onClick={handleActiveFilterPost}>Слідкую</li>
+                    </div>
+                    <div onClick={handlePopularClick}>
+                        <li className='filter' onClick={handleActiveFilterPost}>Популярне</li>
+                    </div>
+                    <div onClick={handleNewClick}>
+                        <li className='filter' onClick={handleActiveFilterPost}>Нове</li>
+                    </div>
                 </nav>
                 <div className='divider'></div>
                 <nav className='my-tags'>
@@ -170,7 +187,7 @@ export const Home = () => {
                     </div>
                     <div className='popular-posts'>
                         <p className='title-posts'>Популярне сьогодні</p>
-                        {data.map((post, index) => (
+                        {initialData.slice(0, 3).map((post, index) => (
                             <React.Fragment key={post.id}>
                                 <div>
                                     <PopularPost
@@ -180,7 +197,7 @@ export const Home = () => {
                                         id={post.id}
                                         tags={post.tags} />
                                 </div>
-                                {index !== data.length - 1 && <div className='divider'></div>}
+                                {index !== initialData.slice(0, 3).length - 1 && <div className='divider'></div>}
                             </React.Fragment>
                         ))}
                     </div>

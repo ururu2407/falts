@@ -108,7 +108,9 @@ export const Header = ({ handleSearch }) => {
             >
               <div className='user-menu'>
                 <p onClick={handleCloseUserMenu}>{user?.fullName}</p>
-                <p onClick={handleCloseUserMenu}>Moї Пости</p>
+                <p onClick={handleCloseUserMenu}>
+                  <Link to={'/falts/userPosts'}> Moї Пости</Link>
+                </p>
                 <p onClick={logout}>Вийти</p>
               </div>
             </Menu>
@@ -124,12 +126,12 @@ export const Header = ({ handleSearch }) => {
       )}
       <BackdropLogin open={loginModalOpen}
         onClick={handleLoginModalClose}
-        account={haveNoAccount} 
-        onClose={handleLoginModalClose}/>
+        account={haveNoAccount}
+        onClose={handleLoginModalClose} />
       <BackdropRegistertion open={registrationModalOpen}
         onClick={handleRegistrationModalClose}
-        account={haveAccount} 
-        onClose={handleRegistrationModalClose}/>
+        account={haveAccount}
+        onClose={handleRegistrationModalClose} />
     </header>
   );
 };
