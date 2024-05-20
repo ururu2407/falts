@@ -86,28 +86,36 @@ export const Post = ({ id, title, date, text, image, user, tags }) => {
         </Link>
     )
 }
+// Компонент PopularPost приймає деструктуризовані пропси: id, title, date, user, tags
 export const PopularPost = ({ id, title, date, user, tags }) => {
+    // Форматуємо дату для відображення
     const formattedDate = formatDate(date);
+    // Повертаємо JSX для відображення популярного поста
     return (
+        // Посилання на конкретний пост за його id
         <Link to={`/falts/post/${id}`}>
             <div className='popular-post'>
                 <div className='info'>
                     <div className='author-info'>
                         <div className='author-block'>
+                            {/* Відображаємо зображення автора, його повне ім'я та відформатовану дату */}
                             <img src={user.image} alt={user.fullName} />
                             <p className='author'>{user.fullName}</p>
                             <p className='dot'>&#x2022;</p>
                             <p className='date'>{formattedDate}</p>
                         </div>
+                        {/* Відображаємо іконку для збереження поста */}
                         <div className='save-icon'>
                             <SelectedIcon />
                         </div>
                     </div>
                     <div className='text-info'>
+                        {/* Відображаємо заголовок поста */}
                         <h3 className='title'>{title}</h3>
                     </div>
                     <div className='actions'>
                         <div className='tags'>
+                            {/* Перебираємо та відображаємо всі теги, прив'язані до поста */}
                             {tags.map(tag => (
                                 <div key={tag.id} className='tag'>
                                     <p>{tag.name}</p>
@@ -118,8 +126,8 @@ export const PopularPost = ({ id, title, date, user, tags }) => {
                 </div>
             </div>
         </Link>
-    )
-}
+    );
+};
 
 export const FirstVisitPost = ({ id, title, date, text, user, tags }) => {
     const formattedDate = formatDate(date);
@@ -231,3 +239,4 @@ export const UserPost = ({ id, title, date, text, image, user, tags, onDelete })
         </div>
     )
 }
+

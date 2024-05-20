@@ -56,18 +56,18 @@
         }
 
         .text-info {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
+            display: flex; // Встановлює гнучкий контейнер
+            flex-direction: column; // Встановлює напрямок розташування елементів по вертикалі (колонка)
+            gap: 8px; // Встановлює відстань між елементами в колонці
 
             .title {
-                @include headling-2;
-                color: $text-text-base;
+                @include heading-2; // Використовує міксин heading-2 для стилізації заголовка
+                color: $text-text-base; // Встановлює колір тексту для заголовка
             }
 
             .text {
-                @include body-2;
-                color: $text-text-base;
+                @include body-2; // Використовує міксин body-2 для стилізації основного тексту
+                color: $text-text-base; // Встановлює колір тексту для основного тексту
             }
         }
 
@@ -192,7 +192,7 @@ a {
                 gap: 8px;
 
                 .title {
-                    @include headling-2;
+                    @include heading-2;
                     color: $text-text-base;
                 }
 
@@ -406,7 +406,7 @@ a {
                 gap: 8px;
 
                 .title {
-                    @include headling-2;
+                    @include heading-2;
                     color: $text-text-base;
                     height: 64px;
                     overflow: hidden;

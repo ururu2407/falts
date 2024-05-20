@@ -1,44 +1,64 @@
 @import url('https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap');
 
+// Основний фон для контенту сторінки
 $background-background-primary: #18181B;
+// Вторинний фон для секцій або елементів
 $background-background-secondary: #27272A;
+// Акцентний колір для обводки елементів
 $stroke-stroke-accent: #FF8906;
+// Основний колір для обводки елементів
 $stroke-stroke-based: #27272A;
+// Приглушений колір для обводки
 $stroke-stroke-subdued: #27272A;
+// Основний колір для іконок
 $icon-icon-base: #FFFFFE;
+// Приглушений колір для іконок
 $icon-icon-subdued: #A1A1AA;
+// Акцентний колір для іконок
 $icon-icon-accent: #FF8906;
+// Приглушений альтернативний колір для тексту
 $text-text-subduedAlt: #71717A;
+// Приглушений колір для тексту
 $text-text-subdued: #A1A1AA;
+// Основний колір для тексту
 $text-text-base: #FFFFFE;
+// Акцентний колір для тексту
 $text-text-accent: #FF8906;
+// Зворотний колір для тексту (наприклад, для тексту на акцентному фоні)
 $text-text-inverse: #18181B;
+// Приглушений колір для заповнення (fill) елементів
 $fill-fill-subdued: #71717A;
+// Нейтральний фон для кнопок
 $buttonBackground-buttonBackground-neutral: #FFFFFE;
+// Акцентний фон для кнопок
 $buttonBackground-buttonBackground-accent: #FF8906;
 
-@mixin headling-1 {
-    font-family: 'Mulish';
-    font-size: 36px;
-    font-weight: 800;
-    line-height: 40px;
-    letter-spacing: 0;
+// Міксин для стилізації заголовка першого рівня
+@mixin heading-1 {
+    font-family: 'Mulish'; // Встановлює шрифт 'Mulish' для тексту
+    font-size: 36px; // Встановлює розмір шрифту 36 пікселів
+    font-weight: 800; // Встановлює товщину шрифту на 800 (дуже жирний шрифт)
+    line-height: 40px; // Встановлює висоту рядка 40 пікселів для забезпечення інтервалу між рядками
+    letter-spacing: 0; // Встановлює інтервал між буквами на 0 (немає додаткового простору між літерами)
 }
-@mixin headling-2 {
+
+@mixin heading-2 {
     font-family: 'Mulish';
     font-size: 24px;
     font-weight: 800;
     line-height: 32px;
     letter-spacing: 0;
 }
-@mixin headling-3 {
+
+@mixin heading-3 {
     font-family: 'Mulish';
     font-size: 20px;
     font-weight: 700;
     line-height: 28px;
     letter-spacing: 0;
 }
+
 @mixin body-1 {
     font-family: 'Mulish';
     font-size: 18px;
@@ -46,6 +66,7 @@ $buttonBackground-buttonBackground-accent: #FF8906;
     line-height: 32px;
     letter-spacing: 0.1px;
 }
+
 @mixin body-2 {
     font-family: 'Mulish';
     font-size: 16px;
@@ -53,6 +74,7 @@ $buttonBackground-buttonBackground-accent: #FF8906;
     line-height: 24px;
     letter-spacing: 0.5px;
 }
+
 @mixin body-3 {
     font-family: 'Mulish';
     font-size: 14px;
@@ -60,6 +82,7 @@ $buttonBackground-buttonBackground-accent: #FF8906;
     line-height: 20px;
     letter-spacing: 0.25px;
 }
+
 @mixin unbounded-1 {
     font-family: 'Unbounded';
     font-size: 56px;

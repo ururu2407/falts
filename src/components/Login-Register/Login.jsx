@@ -22,23 +22,30 @@ export const BackdropLogin = ({ open, onClick, account, onClose }) => {
         setShowPassword(prevState => !prevState);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post("https://04cb5470549a62ec.mokky.dev/auth", {
-                email: email,
-                password: password
-            });
-            const userData = response.data;
-            localStorage.setItem("user", JSON.stringify(userData.data));
-            console.log("Authentication successful!", userData);
-            window.location.reload();
-
-        } catch (error) {
-            setErrorMessage("Invalid email or password. Please try again.");
-            console.error("Authentication failed:", error);
-        }
-    };
+const handleSubmit = async (e) => {
+    // Забороняємо стандартну поведінку форми (перезавантаження сторінки)
+    e.preventDefault();
+    try {
+        // Виконуємо POST-запит до API для автентифікації користувача з введеними email та паролем
+        const response = await axios.post("https://04cb5470549a62ec.mokky.dev/auth", {
+            email: email,
+            password: password
+        });
+        // Зберігаємо дані користувача з відповіді
+        const userData = response.data;
+        // Зберігаємо дані користувача в localStorage
+        localStorage.setItem("user", JSON.stringify(userData.data));
+        // Виводимо повідомлення про успішну автентифікацію
+        console.log("Authentication successful!", userData);
+        // Перезавантажуємо сторінку
+        window.location.reload();
+    } catch (error) {
+        // У випадку помилки встановлюємо повідомлення про помилку
+        setErrorMessage("Invalid email or password. Please try again.");
+        // Логуємо помилку для відладки
+        console.error("Authentication failed:", error);
+    }
+};
 
     return (
         <div className={`backdrop ${open ? 'open' : ''}`} onClick={onClick}>

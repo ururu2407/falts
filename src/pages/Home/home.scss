@@ -91,7 +91,7 @@
         border-left: 1px solid $stroke-stroke-based;
 
         .title-posts {
-            @include headling-3;
+            @include heading-3;
             color: $text-text-base;
             margin-bottom: 32px;
         }

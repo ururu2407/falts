@@ -48,7 +48,7 @@ body.modal-open-1, .modal-open-2 {
             gap: 32px;
 
             h3 {
-                @include headling-3;
+                @include heading-3;
                 color: $text-text-base;
             }
 

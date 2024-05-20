@@ -216,25 +216,31 @@ export const EditPost = () => {
         setBlockIndex((prevIndex) => prevIndex - 1);
     };
 
-    const updatePost = () => {
-        const selectedTags = tags.filter((tag) => tag.selected).map((tag) => ({
-            id: tag.id,
-            name: tag.name,
-        }));
-        const postImage = imageUrl ? imageUrl : 'https://i.imgur.com/L29x4vq.png';
-        axios.patch(`https://04cb5470549a62ec.mokky.dev/posts/${params.id}`, {
-            title: editorTitle.getText(),
-            text: editor.getHTML(),
-            image: postImage,
-            tags: selectedTags,
-        }).then(response => {
-            console.log('Post created successfully:', response.data);
-            setRedirect(true);
+const updatePost = () => {
+    // Фільтруємо вибрані теги і створюємо новий масив об'єктів з вибраними тегами
+    const selectedTags = tags.filter((tag) => tag.selected).map((tag) => ({
+        id: tag.id,
+        name: tag.name,
+    }));
+    // Встановлюємо зображення посту; якщо imageUrl не задано, використовуємо зображення за замовчуванням
+    const postImage = imageUrl ? imageUrl : 'https://i.imgur.com/L29x4vq.png';
+    // Виконуємо PATCH-запит для оновлення посту
+    axios.patch(`https://04cb5470549a62ec.mokky.dev/posts/${params.id}`, {
+        title: editorTitle.getText(), // Отримуємо заголовок посту з редактора
+        text: editor.getHTML(), // Отримуємо текст посту у форматі HTML з редактора
+        image: postImage, // Використовуємо встановлене зображення
+        tags: selectedTags, // Додаємо вибрані теги
+    }).then(response => {
+        // Якщо пост успішно оновлено, виводимо відповідне повідомлення
+        console.log('Post updated successfully:', response.data);
+        // Встановлюємо редирект для перенаправлення користувача
+        setRedirect(true);
+    }).catch(error => {
+        // У випадку помилки виводимо повідомлення про помилку
+        console.error('Error updating post:', error);
+    });
+};
 
-        }).catch(error => {
-            console.error('Error creating post:', error);
-        });
-    }
 
     if (redirect) {
         return <Navigate to="/falts/" />;

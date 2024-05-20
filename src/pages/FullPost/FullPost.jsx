@@ -19,14 +19,18 @@ export const FullPost = () => {
     const [postWithUser, setPostWithUser] = useState(null)
 
     useEffect(() => {
+        // Функція для завантаження посту та даних користувача
         const fetchPostWithUser = async () => {
             try {
-                const postResponse = await axios.get(`https://04cb5470549a62ec.mokky.dev/posts/${params.id}`)
-                const post = postResponse.data
+                // Виконуємо запит для отримання даних посту за його ID
+                const postResponse = await axios.get(`https://04cb5470549a62ec.mokky.dev/posts/${params.id}`);
+                const post = postResponse.data;
 
-                const userResponse = await axios.get(`https://04cb5470549a62ec.mokky.dev/users/${post.user_id}`)
-                const user = userResponse.data
+                // Виконуємо запит для отримання даних користувача за ID користувача, що створив пост
+                const userResponse = await axios.get(`https://04cb5470549a62ec.mokky.dev/users/${post.user_id}`);
+                const user = userResponse.data;
 
+                // Об'єднуємо дані посту і користувача в один об'єкт
                 const postWithUser = {
                     id: post.id,
                     title: post.title,
@@ -39,15 +43,18 @@ export const FullPost = () => {
                         fullName: user.fullName,
                         image: user.image
                     }
-                }
+                };
 
-                setPostWithUser(postWithUser)
+                // Оновлюємо стан з новими даними посту та користувача
+                setPostWithUser(postWithUser);
             } catch (error) {
-                console.error('Error fetching post with user:', error)
+                // Виводимо помилку в консоль, якщо запити не вдалося виконати
+                console.error('Error fetching post with user:', error);
             }
-        }
-        fetchPostWithUser()
-    }, [params.id])
+        };
+        // Викликаємо функцію для завантаження даних посту та користувача
+        fetchPostWithUser();
+    }, [params.id]); // Виконується кожного разу, коли змінюється значення params.id
 
     const formattedDate = formatDate(postWithUser?.date);
     return (

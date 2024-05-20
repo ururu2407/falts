@@ -17,7 +17,7 @@
             gap: 8px;
             align-items: center;
             padding: 20px 0;
-            @include headling-3;
+            @include heading-3;
             color: $text-text-base;
 
             .drawer-title-icon {
@@ -359,15 +359,15 @@ header {
             @include body-1;
 
             h1 {
-                @include headling-1;
+                @include heading-1;
             }
 
             h2 {
-                @include headling-2;
+                @include heading-2;
             }
 
             h3 {
-                @include headling-3;
+                @include heading-3;
             }
         }
     }

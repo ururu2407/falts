@@ -24,21 +24,31 @@ export const BackdropRegistertion = ({ open, onClick, account, onClose }) => {
     };
 
     const handleSubmit = async (e) => {
+        // Зупиняємо стандартну поведінку форми (перезавантаження сторінки)
         e.preventDefault();
+
         try {
+            // Виконуємо POST-запит до API для реєстрації нового користувача
             const response = await axios.post("https://04cb5470549a62ec.mokky.dev/register", {
                 fullName: fullName,
                 email: email,
                 password: password
             });
+
+            // Якщо реєстрація пройшла успішно, виводимо повідомлення і виконуємо вхід користувача
             console.log("Registration successful!", response.data);
             loginUser(email, password);
         } catch (error) {
+            // Обробляємо помилку
             if (error.response && error.response.status === 401) {
+                // Якщо користувач вже зареєстрований, встановлюємо повідомлення про помилку
                 setErrorMessage("User already registered. Please log in.");
             } else {
+                // Інакше, встановлюємо загальне повідомлення про помилку
                 setErrorMessage("Registration failed. Please try again later.");
             }
+
+            // Логуємо додаткові дані про помилку для відладки
             console.error("Registration failed:", error);
         }
     };
